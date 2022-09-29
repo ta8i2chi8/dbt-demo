@@ -1,5 +1,41 @@
 version: 2
 
+sources:
+  - name: dbt_tmorimoto
+    description: raw data
+    tables:
+      - name: raw_customers
+        columns:
+          - name: id
+            description: Primary key of the table
+            tests:
+              - unique
+              - not_null
+
+      - name: raw_orders
+        columns:
+          - name: id
+            description: Primary key of the table
+            tests:
+              - unique
+              - not_null
+
+          - name: user_id
+            description: Foreign key to customers
+
+          - name: status
+            tests:
+              - accepted_values:
+                  values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+      
+      - name: raw_payments
+        columns:
+          - name: id
+            description: Primary key of the table
+            tests:
+              - unique
+              - not_null
+
 models:
   - name: customers
     description: One record per customer
