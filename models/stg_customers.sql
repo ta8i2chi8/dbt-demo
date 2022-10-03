@@ -2,4 +2,4 @@ select
     id as customer_id,
     first_name,
     last_name
-from dbt_tmorimoto.raw_customers
+from {{ source('dbt_tmorimoto', 'raw_customers') }}
